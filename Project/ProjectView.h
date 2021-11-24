@@ -56,6 +56,7 @@ public:
 	CEdit m_static;
 	afx_msg void OnLbnSelchangeList2();
 	afx_msg void OnBnClickedEdit();
+	afx_msg void OnMcnSelchangeMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 #ifndef _DEBUG  // ProjectView.cpp의 디버그 버전

@@ -66,6 +66,19 @@ void CProjectView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 
+	//배경색1
+	m_timeMC.SetColor(MCSC_BACKGROUND, RGB(115, 91, 89));
+
+	//배경색2
+	m_timeMC.SetColor(MCSC_MONTHBK, RGB(140, 114, 115));
+
+	//한 달 내에 텍스트를 표시하는 데 사용되는 색
+	m_timeMC.SetColor(MCSC_TEXT, RGB(255, 0, 0));
+
+	m_timeTP.SetMonthCalColor(MCSC_TEXT, RGB(115, 91, 89));
+
+	
+
 }
 
 
@@ -101,8 +114,7 @@ void CProjectView::OnBnClickedDelete()
 	int nIndex = m_listBox.GetCurSel();
 	if (nIndex != LB_ERR) {
 		m_listBox.DeleteString(nIndex);
-		/*CString str;
-		m_listBox.GetText(nIndex, str);*/
+		m_static.SetWindowTextW(_T(""));
 	}
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
@@ -113,6 +125,7 @@ void CProjectView::OnBnClickedAdd()
 	CString str;
 	m_editbox.GetWindowText(str);
 	m_listBox.AddString(str);
+	m_editbox.SetWindowText(_T(""));
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
@@ -139,3 +152,6 @@ void CProjectView::OnBnClickedEdit()
 		m_listBox.InsertString(nIndex, str);
 	}
 }
+
+
+
