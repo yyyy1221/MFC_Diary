@@ -52,6 +52,10 @@ public:
 	CEdit m_editbox;
 	afx_msg void OnBnClickedDelete();
 	afx_msg void OnBnClickedAdd();
+	afx_msg void OnEnChangeEdit2();
+	CEdit m_static;
+	afx_msg void OnLbnSelchangeList2();
+	afx_msg void OnBnClickedEdit();
 };
 
 #ifndef _DEBUG  // ProjectView.cpp의 디버그 버전

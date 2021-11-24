@@ -25,6 +25,8 @@ IMPLEMENT_DYNCREATE(CProjectView, CFormView)
 BEGIN_MESSAGE_MAP(CProjectView, CFormView)
 	ON_BN_CLICKED(IDC_DELETE, &CProjectView::OnBnClickedDelete)
 	ON_BN_CLICKED(IDC_ADD, &CProjectView::OnBnClickedAdd)
+	ON_LBN_SELCHANGE(IDC_LIST2, &CProjectView::OnLbnSelchangeList2)
+	ON_BN_CLICKED(IDC_EDIT, &CProjectView::OnBnClickedEdit)
 END_MESSAGE_MAP()
 
 // CProjectView 생성/소멸
@@ -47,6 +49,7 @@ void CProjectView::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATETIMEPICKER1, m_timeTP);
 	DDX_Control(pDX, IDC_LIST2, m_listBox);
 	DDX_Control(pDX, IDC_EDIT1, m_editbox);
+	DDX_Control(pDX, IDC_EDIT2, m_static);
 }
 
 BOOL CProjectView::PreCreateWindow(CREATESTRUCT& cs)
@@ -111,4 +114,28 @@ void CProjectView::OnBnClickedAdd()
 	m_editbox.GetWindowText(str);
 	m_listBox.AddString(str);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+//선택한 일정 표시.
+void CProjectView::OnLbnSelchangeList2()
+{
+	int nIndex = m_listBox.GetCurSel();
+	if (nIndex != LB_ERR) {
+		CString str;
+		m_listBox.GetText(nIndex, str);
+		m_static.SetWindowText(str);
+	}
+}
+
+
+void CProjectView::OnBnClickedEdit()
+{
+	int nIndex = m_listBox.GetCurSel();
+	if (nIndex != LB_ERR) {
+		CString str;
+		m_static.GetWindowText(str);
+		m_listBox.DeleteString(nIndex);
+		m_listBox.InsertString(nIndex, str);
+	}
 }
