@@ -146,6 +146,8 @@ protected:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
 CAboutDlg::CAboutDlg() noexcept : CDialogEx(IDD_ABOUTBOX)
@@ -158,6 +160,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
@@ -170,4 +173,15 @@ void CProjectApp::OnAppAbout()
 // CProjectApp 메시지 처리기
 
 
+//배경색 변경.(미완)
+BOOL CAboutDlg::OnEraseBkgnd(CDC* pDC)
+{
+	CBrush backBrush(RGB(255, 255, 255));
+	CBrush* pOldBrush = pDC->SelectObject(&backBrush);
+	CRect rect;
+	pDC->GetClipBox(&rect);
+	pDC->PatBlt(rect.left, rect.top, rect.Width(), rect.Height(), PATCOPY);
+	pDC->SelectObject(pOldBrush);
 
+	return true;
+}
