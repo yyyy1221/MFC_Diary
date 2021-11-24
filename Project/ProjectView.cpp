@@ -122,9 +122,10 @@ void CProjectView::OnBnClickedDelete()
 //일정 추가 버튼
 void CProjectView::OnBnClickedAdd()
 {
-	CString str;
+	CString str, timestr;
 	m_editbox.GetWindowText(str);
-	m_listBox.AddString(str);
+	m_timeTP.GetWindowText(timestr);
+	m_listBox.AddString(_T("[")+timestr+_T("] ")+str);
 	m_editbox.SetWindowText(_T(""));
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
