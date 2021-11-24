@@ -48,7 +48,7 @@ protected:
 public:
 	CMonthCalCtrl m_timeMC;
 	CDateTimeCtrl m_timeTP;
-	CListBox m_listBox;
+	CCheckListBox m_listBox;
 	CEdit m_editbox;
 	afx_msg void OnBnClickedDelete();
 	afx_msg void OnBnClickedAdd();

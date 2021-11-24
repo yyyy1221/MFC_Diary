@@ -77,8 +77,6 @@ void CProjectView::OnInitialUpdate()
 
 	m_timeTP.SetMonthCalColor(MCSC_TEXT, RGB(115, 91, 89));
 
-	
-
 }
 
 
