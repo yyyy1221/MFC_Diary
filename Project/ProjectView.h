@@ -50,13 +50,28 @@ public:
 	CDateTimeCtrl m_timeTP;
 	CCheckListBox m_listBox;
 	CEdit m_editbox;
-	afx_msg void OnBnClickedDelete();
+//	afx_msg void OnBnClickedDelete();
 	afx_msg void OnBnClickedAdd();
 	afx_msg void OnEnChangeEdit2();
 	CEdit m_static;
-	afx_msg void OnLbnSelchangeList2();
-	afx_msg void OnBnClickedEdit();
+//	afx_msg void OnLbnSelchangeList2();
+//	afx_msg void OnBnClickedEdit();
 	afx_msg void OnMcnSelchangeMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
+	CListCtrl m_listview;
+	CComboBox m_start;
+	CComboBox m_end;
+	CEdit m_location;
+	CEdit m_memo;
+	afx_msg void OnCbnSelchangeCombostart();
+	CButton m_delete;
+	afx_msg void OnBnClickedDelete();
+	afx_msg void OnCbnSelchangeComboend();
+	CButton m_date;
+	afx_msg void OnDtnDatetimechangeDatetimepicker1(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnMcnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
+	CStatic m_datetext;
+	afx_msg void OnBnClickedEditsched();
+	afx_msg void OnBnClickedSave();
 };
 
 #ifndef _DEBUG  // ProjectView.cpp의 디버그 버전
