@@ -22,6 +22,7 @@
 #define new DEBUG_NEW
 #endif
 
+//일정 구조체
 struct schedule {
 	CString date;
 	CString schedule;
@@ -32,7 +33,9 @@ struct schedule {
 	unsigned int count = 0;
 };
 
+//일정을 날짜별로 관리하는 일정 구조체 배열
 struct schedule my_schedule[100][13][32][100]; //년 월 일 일정개수 (년은 + 2000)
+//해당 날짜에 일정 갯수를 관리하는 배열
 int schedule_count[100][13][32] = { 0, }; //날짜 별 스케줄 갯수(년/월/일)
 
 FILE* file = NULL; //일정 불러오기용 파일 스트림.
@@ -62,7 +65,6 @@ CProjectView::CProjectView() noexcept
 	: CFormView(IDD_PROJECT_FORM)
 {
 	
-
 }
 
 CProjectView::~CProjectView()
@@ -128,7 +130,6 @@ void CProjectView::OnInitialUpdate()
 	m_datetext.SetWindowText(strMsg);
 
 	//파일 불러오기
-
 	CString tmp;
 	WCHAR* ptr1, * next;
 	WCHAR tmp_buf[1000];
@@ -195,9 +196,7 @@ void CProjectView::OnInitialUpdate()
 	year = currentTime.GetYear();
 	month = currentTime.GetMonth();
 	day = currentTime.GetDay();
-
 	strMsg.Format(_T("%u년 %d월 %d일\n"), year, month, day);
-
 	year -= 2000;
 	int* count_now = &schedule_count[year][month][day]; //현재 날짜의 일정 개수
 
@@ -251,7 +250,7 @@ void CProjectView::OnBnClickedAdd()
 	m_location.GetWindowText(location);
 	m_memo.GetWindowText(memo);
 	
-	//달력 선택 날자 받아옴.
+	//달력 선택 날짜 받아옴.
 	CTime currentTime;
 	CString strMsg;
 	CMonthCalCtrl* pCalendar = (CMonthCalCtrl*)GetDlgItem(IDC_MONTHCALENDAR1);
@@ -265,7 +264,7 @@ void CProjectView::OnBnClickedAdd()
 	year -= 2000;
 	int* count = &schedule_count[year][month][day];
 
-	//구조체에 일정 추가.
+	//구조체 배열에 일정 추가.
 	my_schedule[year][month][day][*count].date = strMsg;
 	my_schedule[year][month][day][*count].schedule = sched;
 	my_schedule[year][month][day][*count].start_time = start_time;
@@ -299,10 +298,10 @@ void CProjectView::OnCbnSelchangeCombostart()
 void CProjectView::OnBnClickedDelete()
 {
 
-	//선택한 일정 삭제
+	//선택한 일정 확인
 	int selected_index = m_listview.GetSelectionMark();
 
-	//달력 선택 날자 받아옴.
+	//달력 선택 날짜 받아옴.
 	CTime currentTime;
 	CString strMsg;
 	CMonthCalCtrl* pCalendar = (CMonthCalCtrl*)GetDlgItem(IDC_MONTHCALENDAR1);
@@ -352,7 +351,7 @@ void CProjectView::OnMcnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LPNMSELCHANGE pSelChange = reinterpret_cast<LPNMSELCHANGE>(pNMHDR);
 
-	//달력 선택 날자 받아옴.
+	//달력 선택 날짜 받아옴.
 	CTime currentTime;
 	CString strMsg;
 	CMonthCalCtrl* pCalendar = (CMonthCalCtrl*)GetDlgItem(IDC_MONTHCALENDAR1);
@@ -395,7 +394,7 @@ void CProjectView::OnBnClickedEditsched()
 	m_location.GetWindowText(location);
 	m_memo.GetWindowText(memo);
 
-	//달력 선택 날자 받아옴.
+	//달력 선택 날짜 받아옴.
 	CTime currentTime;
 	CString strMsg;
 	CMonthCalCtrl* pCalendar = (CMonthCalCtrl*)GetDlgItem(IDC_MONTHCALENDAR1);
@@ -430,7 +429,7 @@ void CProjectView::OnBnClickedEditsched()
 	}
 }
 
-
+//저장하기
 void CProjectView::OnBnClickedSave()
 {
 	FILE* file2 = NULL; //파일 저장용 파일 스트림.
@@ -468,50 +467,10 @@ void CProjectView::OnBnClickedSave()
 						wcs = str.GetBuffer();
 						fputws(wcs, file);
 						str = "";
-						//str을 파일 버퍼에 넣었다가 파일에 추가.???
 					}
 				}
 			}
 		}
 	}
 
-	//CString str, tmp;
-	//CString str_year, str_month, str_day;
-	//wchar_t* wcs;
-	//str = "";
-	//for (int i = 0; i < 100; i++) { //2000년~2099년
-	//	for (int j = 1; j < 13; j++) { //1월~12월
-	//		for (int k = 1; k < 32; k++) { //1일~31일
-	//			for (int l = 0; l < schedule_count[i][j][k]; l++) {//count가 0이면 pass.
-
-	//				str_year.Format(_T("%d"), i+2000);//년
-	//				str += str_year;
-	//				str += "|";
-	//				str_month.Format(_T("%d"), j); //월
-	//				str += str_month;
-	//				str += "|";
-	//				str_day.Format(_T("%d"), k); //dlf
-	//				str += str_day;
-	//				str += "|";
-
-	//				str += my_schedule[i][j][k][l].schedule;
-	//				str += "|";
-	//				str += my_schedule[i][j][k][l].start_time;
-	//				str += "|";
-	//				str += my_schedule[i][j][k][l].end_time;
-	//				str += "|";
-	//				str += my_schedule[i][j][k][l].location;
-	//				str += "|";
-	//				str += my_schedule[i][j][k][l].memo;
-	//				str += "\n";
-
-	//				wcs = str.GetBuffer();
-	//				fputws(wcs, file);
-	//				str = "";
-	//				//str을 파일 버퍼에 넣었다가 파일에 추가.???
-	//			}
-	//		}
-	//	}
-	//}
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
